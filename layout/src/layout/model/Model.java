@@ -33,7 +33,6 @@ public class Model
     {
     }
 
-    @SuppressWarnings("UnusedDeclaration")
     public BufferedImage getImage()
     {
         return image;

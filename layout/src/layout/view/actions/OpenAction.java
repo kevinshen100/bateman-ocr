@@ -18,8 +18,12 @@ import java.io.IOException;
  */
 public class OpenAction extends AbstractAction
 {
-    @SuppressWarnings({"FieldCanBeLocal", "UnusedDeclaration"})
-    private Model model;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("unused")
+	private Model model;
     private View view;
     private Controller controller;
 

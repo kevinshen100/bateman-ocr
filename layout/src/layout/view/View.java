@@ -18,9 +18,15 @@ import java.awt.event.WindowEvent;
  */
 public class View extends JFrame
 {
-    private Canvas canvas = null;
-    private Model model = null;
-    private Controller controller;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Canvas canvas = null;
+    @SuppressWarnings("unused")
+	private Model model = null;
+    @SuppressWarnings("unused")
+	private Controller controller;
     private JScrollPane canvasScrollPane;
 
     public View(Model model, Controller controller)
@@ -113,7 +119,6 @@ public class View extends JFrame
         return canvas;
     }
 
-    @SuppressWarnings("UnusedDeclaration")
     protected JScrollPane getCanvasScrollPane()
     {
         return canvasScrollPane;

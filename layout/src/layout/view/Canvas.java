@@ -20,18 +20,22 @@ import java.util.List;
 class Canvas extends JPanel
 {
 
-    private Model model;
-    @SuppressWarnings({"FieldCanBeLocal", "UnusedDeclaration"})
-    private View view;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Model model;
+    @SuppressWarnings("unused")
+	private View view;
 
     private CanvasMouseListener mouseListener;
 
     /**
-     * The default constructor should NEVER be called. It has made private so that no other class can create a
+     * The default constructor should NEVER be called. It is made private so that no other class can create a
      * Canvas except by initializing it properly (i.e. by calling the parameterized constructor)
      */
-    @SuppressWarnings("UnusedDeclaration")
-    private Canvas()
+    @SuppressWarnings("unused")
+	private Canvas()
     {
     }
 

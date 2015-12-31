@@ -17,7 +17,11 @@ import java.awt.event.MouseWheelEvent;
 class HVMouseWheelScrollPane extends JScrollPane
 {
 
-    final View view;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	final View view;
 
     public HVMouseWheelScrollPane(View v)
     {

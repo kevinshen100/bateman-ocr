@@ -12,10 +12,14 @@ package layout.utils;
 public class UnsupportedImageTypeException extends Exception
 {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Constructs an <code>project.utils.UnsupportedImageTypeException</code> with <code>null</code>
      * as its error detail message.
      */
-    @SuppressWarnings("UnusedDeclaration")
     public UnsupportedImageTypeException()
     {
         super();

@@ -48,7 +48,7 @@ public class ImageFile
         if (!f.exists() || !f.canRead())
             throw new IOException("File: \"" + f.getName() + "\" does not exist or is unreadable");
         iis = ImageIO.createImageInputStream(f);
-        Iterator irit = ImageIO.getImageReaders(iis);
+        Iterator<ImageReader> irit = ImageIO.getImageReaders(iis);
         if (!irit.hasNext())
         {
             iis.close();
@@ -67,7 +67,6 @@ public class ImageFile
      *
      * @return the name of the file, without any preceding path or filename extension
      */
-    @SuppressWarnings("UnusedDeclaration")
     public String getBaseName()
     {
         String name = file.getName();
@@ -82,7 +81,6 @@ public class ImageFile
      *
      * @return the name of the file, without any preceding path
      */
-    @SuppressWarnings("UnusedDeclaration")
     public String getName()
     {
         return file.getName();
@@ -93,7 +91,6 @@ public class ImageFile
      *
      * @return parent directory of this file
      */
-    @SuppressWarnings("UnusedDeclaration")
     public File getDir()
     {
         return file.getParentFile();

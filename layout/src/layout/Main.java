@@ -43,7 +43,12 @@ import javax.swing.*;
  */
 public class Main extends JFrame
 {
-    public static void main(String[] args)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public static void main(String[] args)
     {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
