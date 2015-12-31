@@ -1,10 +1,10 @@
-package layout.view;
+package gte.view;
 
-import layout.controller.Controller;
-import layout.model.Model;
-import layout.view.actions.ExitAction;
-import layout.view.actions.LongRunningAction;
-import layout.view.actions.OpenAction;
+import gte.controller.Controller;
+import gte.model.Model;
+import gte.view.actions.ExitAction;
+import gte.view.actions.LongRunningAction;
+import gte.view.actions.OpenAction;
 
 import javax.swing.*;
 import java.awt.BorderLayout;
@@ -31,7 +31,7 @@ public class View extends JFrame
 
     public View(Model model, Controller controller)
     {
-        super("Layout Analyser");
+        super("Ground Truth Engine");
         this.model = model;
         this.controller = controller;
         controller.addView(this);
