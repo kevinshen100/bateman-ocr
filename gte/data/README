@@ -1,0 +1,25 @@
+sample_css.tgz should be extracted into the current folder but the extracted
+directory hierarchy should NOT be added to GitHub.
+
+
+To read and write TIFF images (.tif files) in Java, you need to use Java
+Advanced Imaging I/O Tools library. This is available from:
+    http://mircwiki.rsna.org/index.php?title=Java_Advanced_Imaging_ImageIO_Tools
+Get the download appropriate for your architecture and operating system  and
+add the files to your project library. For 64 bit Linux, this includes 
+two jar files and a ".so" file. These libraries should not be added to GitHub as
+different developers will need different versions based on their architecture
+and operating system.
+
+
+sample.tif is a tiff image file that contains 5 tiff monochrome images.
+
+sample_css contains a directory structure that has a "moments.csv" file with
+information about every connected component in the sample.tif images as well as
+a small tiff image of every connected component. These small tiff images have
+the foreground as black and the background as 100% transparent rather than just
+white. This means that, even if the bound boxes of the connected components
+overlap each other on the original image, if they are drawn on a white canvas,
+they will reconstruct the original image correctly: i.e. the white background of
+one connected component will not overwrite the black foreground of a different
+connected component that was drawn previously.
