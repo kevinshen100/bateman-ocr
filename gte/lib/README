@@ -1,0 +1,15 @@
+This folder should contain any external libraries required.
+
+In particular it should contain the
+    Java Advanced Imaging I/O tools library
+Download and unpack into this folder the appropriate version for your 
+architecture or operating system from:
+    http://mircwiki.rsna.org/index.php?title=Java_Advanced_Imaging_ImageIO_Tools
+
+Do not add the resulting library to GitHub as different developers will require
+different versions of the library depending on their architecture and operating
+system
+
+In Eclipse, select all the jar files (not the .so files)  in lib, then:
+    right click|Build Path|Add to Build Path
+
