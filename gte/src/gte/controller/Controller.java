@@ -59,6 +59,7 @@ public class Controller
     public void loadImage(File file)
             throws IOException, UnsupportedImageTypeException
     {
+        view.setPageNum(0);
         model.loadImage(file);
         view.adaptToNewImage();
     }

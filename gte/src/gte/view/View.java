@@ -2,12 +2,11 @@ package gte.view;
 
 import gte.controller.Controller;
 import gte.model.Model;
-import gte.view.actions.ExitAction;
-import gte.view.actions.LongRunningAction;
-import gte.view.actions.OpenAction;
+import gte.view.actions.*;
 
 import javax.swing.*;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -28,6 +27,9 @@ public class View extends JFrame
     @SuppressWarnings("unused")
 	private Controller controller;
     private JScrollPane canvasScrollPane;
+
+    private ToggleAction toggleAction;
+    private int pageNum;
 
     public View(Model model, Controller controller)
     {
@@ -55,6 +57,9 @@ public class View extends JFrame
         final AbstractAction exitAction = new ExitAction(model, this, controller);
         AbstractAction openAction = new OpenAction(model, this, controller);
         AbstractAction longRunningAction = new LongRunningAction(model, this, controller);
+        toggleAction = new ToggleAction(model, this, controller);
+        AbstractAction previousPage = new PreviousPage(model, this, controller);
+        AbstractAction nextPage = new NextPage(model, this, controller);
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter()
@@ -65,6 +70,8 @@ public class View extends JFrame
             }
         });
 
+
+
         // Set up the menu bar
         JMenu fileMenu;
         fileMenu = new JMenu("File");
@@ -72,6 +79,12 @@ public class View extends JFrame
         fileMenu.add(longRunningAction);
         fileMenu.addSeparator();
         fileMenu.add(exitAction);
+
+        fileMenu.add(toggleAction);
+        fileMenu.addSeparator();
+        fileMenu.add(previousPage);
+        fileMenu.add(nextPage);
+
 
         JMenuBar menuBar;
 
@@ -90,6 +103,12 @@ public class View extends JFrame
         toolBar.add(openAction);
         toolBar.add(longRunningAction);
 
+        toolBar.add(toggleAction);
+        toolBar.addSeparator();
+        toolBar.add(previousPage);
+        toolBar.add(nextPage);
+
+
         getContentPane().add(toolBar, BorderLayout.NORTH);
 
         pack();
@@ -101,7 +120,14 @@ public class View extends JFrame
         setCanvasSize();
     }
 
+    public boolean getToggled() {return toggleAction.isToggled();}
+    public void toggle() {
+        ActionEvent tempAction = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null);
+        this.toggleAction.actionPerformed(tempAction);
+    }
 
+    public void setPageNum(int x) { this.pageNum = x; }
+    public int getPageNum() { return this.pageNum; }
     /**
      * Adapt the settings for the ViewPort and scroll bars to the dimensions required.
      * This needs to be called anytime the image changes size.

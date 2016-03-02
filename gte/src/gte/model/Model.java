@@ -28,6 +28,10 @@ public class Model
 {
     private BufferedImage image = null;
     private List<Rectangle> rects = new ArrayList<Rectangle>();
+    private ArrayList<Component> comps = new ArrayList<Component>();
+    private File currentFile;
+
+    private double zoomLevel = 100;
 
     public Model()
     {
@@ -43,6 +47,8 @@ public class Model
         return rects;
     }
 
+    public ArrayList<Component> getComps() { return comps; }
+
     /**
      * Sets or replaces the current image in the <code>Model</code>
      *
@@ -52,6 +58,10 @@ public class Model
     {
         image = bi;
         rects.clear();
+    }
+
+    public void clearComps() {
+        comps.clear();
     }
 
     public Dimension getDimensions()
@@ -73,6 +83,17 @@ public class Model
     }
 
     /**
+     * Adds a new <code>Component</code> to the <code>Model</code>
+     *
+     * @param comp the <code>Component</code> to add to the <code>Model</code>
+     */
+    public void addComponent(Component comp)
+    {
+        comps.add(comp);
+        //System.out.println(getComps());
+    }
+
+    /**
      * Tests if the model is active, i.e. whether it currently has an image
      *
      * @return <code>true</code> if the model has an image, false otherwise
@@ -82,15 +103,39 @@ public class Model
         return image != null;
     }
 
+    public File getCurrentFile() { return this.currentFile; }
+
     public void loadImage(File file)
             throws IOException, UnsupportedImageTypeException
     {
+        loadImageWithNumber(file, 0);
+        /*
+        currentFile = file;
         ImageFile newImageFile = new ImageFile(file);
         int numImages = newImageFile.getNumImages();
         if (numImages == 0)
             throw new IOException("Image file contains no images");
         BufferedImage bi = newImageFile.getBufferedImage(0);
         setImage(bi);
+        */
+
+    }
+
+    public void loadImageWithNumber(File file, int n)
+            throws IOException, UnsupportedImageTypeException
+    {
+        currentFile = file;
+        ImageFile newImageFile = new ImageFile(file);
+        int numImages = newImageFile.getNumImages();
+        if (numImages == 0)
+            throw new IOException("Image file contains no images");
+        BufferedImage bi = newImageFile.getBufferedImage(n);
+        setImage(bi);
+
+    }
+
+    public void setScale(double newScale) {
+        this.zoomLevel = newScale;
     }
 
 }
