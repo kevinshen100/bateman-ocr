@@ -61,6 +61,9 @@ public class View extends JFrame
         AbstractAction previousPage = new PreviousPage(model, this, controller);
         AbstractAction nextPage = new NextPage(model, this, controller);
 
+        AbstractAction resetZoomAction = new ZoomReset(model, this, controller);
+        AbstractAction zoomOutAction = new ZoomOut(model, this, controller);
+
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter()
         {
@@ -108,6 +111,8 @@ public class View extends JFrame
         toolBar.add(previousPage);
         toolBar.add(nextPage);
 
+        toolBar.add(resetZoomAction);
+        toolBar.add(zoomOutAction);
 
         getContentPane().add(toolBar, BorderLayout.NORTH);
 

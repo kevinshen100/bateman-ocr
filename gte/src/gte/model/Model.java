@@ -31,7 +31,7 @@ public class Model
     private ArrayList<Component> comps = new ArrayList<Component>();
     private File currentFile;
 
-    private double zoomLevel = 100;
+    private double zoomLevel = 1;
 
     public Model()
     {
@@ -54,11 +54,21 @@ public class Model
      *
      * @param bi the image to set in the <code>Model</code>
      */
+
     public void setImage(BufferedImage bi)
     {
         image = bi;
         rects.clear();
     }
+
+    public void setZoomLevel(double z) {
+        zoomLevel = z;
+        setImage(image);
+    }
+    public double getZoomLevel() {return zoomLevel;}
+
+
+
 
     public void clearComps() {
         comps.clear();
@@ -134,8 +144,5 @@ public class Model
 
     }
 
-    public void setScale(double newScale) {
-        this.zoomLevel = newScale;
-    }
 
 }

@@ -73,7 +73,7 @@ class Canvas extends JPanel
         // The ViewPort is the part of the canvas that is displayed.
         // By scrolling the ViewPort, you move it across the full size canvas,
         // showing only the ViewPort sized window of the canvas at any one time.
-        if (view.getToggled()==true) {
+        if (view.getToggled()) {
             List<Rectangle> rects = model.getRects();
             //g2.setColor(Color.WHITE);
             for (Component c : model.getComps()) {
@@ -98,7 +98,7 @@ class Canvas extends JPanel
 
             // Draw the display image on the full size canvas
             g2.drawImage(image, 0, 0, null);
-
+            g2.scale(model.getZoomLevel(), model.getZoomLevel());
             if (!rects.isEmpty()) {
                 Color col = g2.getColor();
                 g2.setColor(Color.BLUE);

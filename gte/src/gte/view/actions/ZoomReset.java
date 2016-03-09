@@ -35,6 +35,6 @@ public class ZoomReset extends AbstractAction
 
     public void actionPerformed(ActionEvent e)
     {
-
+        model.setZoomLevel(1);
     }
 }
