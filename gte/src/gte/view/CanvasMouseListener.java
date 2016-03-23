@@ -68,8 +68,8 @@ class CanvasMouseListener implements MouseInputListener
     {
         if (!model.isActive())
             return ;
-        x1 = e.getX();
-        y1 = e.getY();
+        x1 = (int)(e.getX()/view.getZoomLevel());
+        y1 = (int)(e.getY()/view.getZoomLevel());
         mouseDown = true;
         view.getCanvas().addMouseMotionListener(this);
     }
@@ -81,8 +81,8 @@ class CanvasMouseListener implements MouseInputListener
             return ;
         view.getCanvas().removeMouseMotionListener(this);
         mouseDown = false;
-        x2 = e.getX();
-        y2 = e.getY();
+        x2 = (int)(e.getX()/view.getZoomLevel());
+        y2 = (int)(e.getY()/view.getZoomLevel());
         if (x1 <= x2)
         {
             if (y1 <= y2)
@@ -112,8 +112,8 @@ class CanvasMouseListener implements MouseInputListener
     @Override
     public void mouseDragged(MouseEvent e)
     {
-        x2 = e.getX();
-        y2 = e.getY();
+        x2 = (int)(e.getX()/view.getZoomLevel());
+        y2 = (int)(e.getY()/view.getZoomLevel());
         view.getCanvas().repaint();
     }
 

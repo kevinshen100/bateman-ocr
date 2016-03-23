@@ -8,9 +8,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 /**
- * Created by kns10 on 3/2/16.
+ * Created by kns10 on 3/15/16.
  */
-public class ZoomIn extends AbstractAction{
+public class ZoomPage extends AbstractAction{
     private static final long serialVersionUID = 1L;
     @SuppressWarnings("unused")
     private Model model;
@@ -19,13 +19,13 @@ public class ZoomIn extends AbstractAction{
 
 
     {
-        putValue(NAME, "Zoom Out");
+        putValue(NAME, "Zoom Page");
         putValue(SMALL_ICON, new ImageIcon(getClass().getResource("/gte/icons/zoomin.png")));
-        putValue(SHORT_DESCRIPTION, "Zooms in");
-        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control ="));
+        putValue(SHORT_DESCRIPTION, "fits page on window");
+        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control 7"));
     }
 
-    public ZoomIn(Model model, View view, Controller controller)
+    public ZoomPage(Model model, View view, Controller controller)
     {
         this.view = view;
         this.model = model;
@@ -34,6 +34,6 @@ public class ZoomIn extends AbstractAction{
 
     public void actionPerformed(ActionEvent e)
     {
-        view.setZoomLevel(Math.min(view.getZoomLevel()+0.2,8));
+        view.setZoomLevel(Math.min(view.getWidth()*1.0/model.getImage().getWidth(), (view.getHeight()-100)*1.0/model.getImage().getHeight()));
     }
 }

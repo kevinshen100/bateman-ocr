@@ -6,6 +6,7 @@ import gte.utils.UnsupportedImageTypeException;
 import javax.imageio.ImageIO;
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -29,11 +30,31 @@ public class Component {
     private String[] everythingElse;
 
     private BufferedImage heldImage;
+    private boolean isSelected;
 
 
     public Component(int x, int y, int w, int h, BufferedImage b) {
         imageCoords = new Rectangle(x, y, w, h);
         heldImage = b;
+        isSelected = false;
+    }
+
+    public void toggleSelected() {
+        if (isSelected) {
+            isSelected = false;
+
+            return;
+        }
+        isSelected = true;
+        return;
+    }
+
+    public void setSelected(boolean b) {
+        if (b) {
+
+        } else {
+
+        }
     }
 
     public BufferedImage getHeldImage() {
@@ -42,6 +63,10 @@ public class Component {
 
     public Rectangle getImageCoords() {
         return imageCoords;
+    }
+
+    public boolean contains(Point p) {
+        return this.imageCoords.contains(p);
     }
 
     public int getPage() {
@@ -70,6 +95,9 @@ public class Component {
             System.out.println("error reading file "+image_basePath+String.format("%04d", page)+"/"+cc_image);
             System.out.println(ex);
         }
+
+        isSelected = false;
+
 
     }
 

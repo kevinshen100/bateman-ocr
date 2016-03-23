@@ -31,6 +31,17 @@ public class View extends JFrame
     private ToggleAction toggleAction;
     private int pageNum;
 
+
+    private double zoomLevel = 1;
+
+    public void setZoomLevel(double z) {
+        zoomLevel = z;
+        System.out.println(zoomLevel);
+        repaint();
+        canvas.repaint();
+    }
+    public double getZoomLevel() {return zoomLevel;}
+
     public View(Model model, Controller controller)
     {
         super("Ground Truth Engine");
@@ -63,6 +74,9 @@ public class View extends JFrame
 
         AbstractAction resetZoomAction = new ZoomReset(model, this, controller);
         AbstractAction zoomOutAction = new ZoomOut(model, this, controller);
+        AbstractAction zoomInAction = new ZoomIn(model, this, controller);
+        AbstractAction zoomWidthAction = new ZoomWidth(model, this, controller);
+        AbstractAction zoomPageAction = new ZoomPage(model, this, controller);
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter()
@@ -113,6 +127,9 @@ public class View extends JFrame
 
         toolBar.add(resetZoomAction);
         toolBar.add(zoomOutAction);
+        toolBar.add(zoomInAction);
+        toolBar.add(zoomWidthAction);
+        toolBar.add(zoomPageAction);
 
         getContentPane().add(toolBar, BorderLayout.NORTH);
 

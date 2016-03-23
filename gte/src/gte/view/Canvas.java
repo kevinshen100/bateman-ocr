@@ -31,7 +31,6 @@ class Canvas extends JPanel
 
     private CanvasMouseListener mouseListener;
 
-    private double zoomLevel = 1;
 
     /**
      * The default constructor should NEVER be called. It is made private so that no other class can create a
@@ -75,6 +74,7 @@ class Canvas extends JPanel
         // showing only the ViewPort sized window of the canvas at any one time.
         if (view.getToggled()) {
             List<Rectangle> rects = model.getRects();
+            g2.scale(view.getZoomLevel(), view.getZoomLevel());
             //g2.setColor(Color.WHITE);
             for (Component c : model.getComps()) {
                 g2.drawImage(c.getHeldImage(), c.getImageCoords().x, c.getImageCoords().y, null);
@@ -97,8 +97,9 @@ class Canvas extends JPanel
             List<Rectangle> rects = model.getRects();
 
             // Draw the display image on the full size canvas
+            g2.scale(view.getZoomLevel(), view.getZoomLevel());
             g2.drawImage(image, 0, 0, null);
-            g2.scale(model.getZoomLevel(), model.getZoomLevel());
+
             if (!rects.isEmpty()) {
                 Color col = g2.getColor();
                 g2.setColor(Color.BLUE);
@@ -118,8 +119,8 @@ class Canvas extends JPanel
     public Dimension getPreferredSize()
     {
         if (model.isActive())
-            return new Dimension(model.getImage().getWidth(),
-                                 model.getImage().getHeight());
+            return new Dimension((int)(model.getImage().getWidth()*view.getZoomLevel()),
+                    (int)(model.getImage().getHeight()*view.getZoomLevel()));
         return new Dimension(0, 0);
     }
 

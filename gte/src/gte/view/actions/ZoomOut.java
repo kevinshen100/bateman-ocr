@@ -20,7 +20,7 @@ public class ZoomOut extends AbstractAction {
 
     {
         putValue(NAME, "Zoom Out");
-        putValue(SMALL_ICON, new ImageIcon(getClass().getResource("/gte/icons/leftarrow.png")));
+        putValue(SMALL_ICON, new ImageIcon(getClass().getResource("/gte/icons/zoomout.png")));
         putValue(SHORT_DESCRIPTION, "Zooms out");
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control -"));
     }
@@ -34,6 +34,6 @@ public class ZoomOut extends AbstractAction {
 
     public void actionPerformed(ActionEvent e)
     {
-        model.setZoomLevel(model.getZoomLevel()*.9);
+        view.setZoomLevel(Math.max(view.getZoomLevel()-0.1,0.1));
     }
 }

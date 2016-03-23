@@ -5,6 +5,7 @@ import gte.utils.UnsupportedImageTypeException;
 
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -29,9 +30,10 @@ public class Model
     private BufferedImage image = null;
     private List<Rectangle> rects = new ArrayList<Rectangle>();
     private ArrayList<Component> comps = new ArrayList<Component>();
+    private ArrayList<Component> selected = new ArrayList<Component>();
     private File currentFile;
 
-    private double zoomLevel = 1;
+
 
     public Model()
     {
@@ -49,6 +51,15 @@ public class Model
 
     public ArrayList<Component> getComps() { return comps; }
 
+    public Component whichClicked(Point p) {
+        for (Component c: comps) {
+            if (c.contains(p)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
     /**
      * Sets or replaces the current image in the <code>Model</code>
      *
@@ -61,13 +72,15 @@ public class Model
         rects.clear();
     }
 
-    public void setZoomLevel(double z) {
-        zoomLevel = z;
-        setImage(image);
+    public void selectComponent(Component c) {
+        selected.add(c);
+        c.toggleSelected();
     }
-    public double getZoomLevel() {return zoomLevel;}
 
-
+    public void deselectComponent(Component c) {
+        selected.remove(c);
+        c.toggleSelected();
+    }
 
 
     public void clearComps() {

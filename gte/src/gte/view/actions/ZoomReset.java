@@ -21,7 +21,7 @@ public class ZoomReset extends AbstractAction
 
     {
         putValue(NAME, "Reset Zoom");
-        putValue(SMALL_ICON, new ImageIcon(getClass().getResource("/gte/icons/leftarrow.png")));
+        putValue(SMALL_ICON, new ImageIcon(getClass().getResource("/gte/icons/zoomreset.png")));
         putValue(SHORT_DESCRIPTION, "Resets zoom level");
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control 0"));
     }
@@ -35,6 +35,6 @@ public class ZoomReset extends AbstractAction
 
     public void actionPerformed(ActionEvent e)
     {
-        model.setZoomLevel(1);
+        view.setZoomLevel(1);
     }
 }
