@@ -60,6 +60,22 @@ public class Model
         return null;
     }
 
+    public ArrayList<Component> allSelected(Rectangle r) {
+        ArrayList<Component> out = new ArrayList<Component>();
+        for (Component c: comps) {
+            if (r.intersects(c.getImageCoords())) {
+                out.add(c);
+            }
+        }
+        return out;
+    }
+
+    public void selectComponents(ArrayList<Component> a) {
+        for (Component c:a) {
+            selectComponent(c);
+        }
+    }
+
     /**
      * Sets or replaces the current image in the <code>Model</code>
      *
@@ -73,15 +89,43 @@ public class Model
     }
 
     public void selectComponent(Component c) {
+        if (c.getImageCoords().getHeight()>1000 && c.getImageCoords().getWidth()>1000) {
+            return;
+        }
         selected.add(c);
+        c.select();
+        System.out.println(c.getImageCoords());
+    }
+
+    public void toggleComponents(ArrayList<Component> a) {
+        for (Component c:a) {
+            toggleComponent(c);
+        }
+    }
+
+    public void toggleComponent(Component c) {
+        if (c.getImageCoords().getHeight()>1000 && c.getImageCoords().getWidth()>1000) {
+            return;
+        }
+        if (c.getSelected()) {
+            selected.remove(c);
+        } else {
+            selected.add(c);
+        }
         c.toggleSelected();
     }
 
     public void deselectComponent(Component c) {
         selected.remove(c);
-        c.toggleSelected();
+        c.deselect();
     }
 
+    public void deselectAllComponents() {
+        for (Component c: selected) {
+            c.deselect();
+        }
+        selected.clear();
+    }
 
     public void clearComps() {
         comps.clear();

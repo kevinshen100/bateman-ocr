@@ -7,7 +7,12 @@ import javax.imageio.ImageIO;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Point;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,30 +35,94 @@ public class Component {
     private String[] everythingElse;
 
     private BufferedImage heldImage;
+    private BufferedImage normalImage;
     private boolean isSelected;
 
 
     public Component(int x, int y, int w, int h, BufferedImage b) {
         imageCoords = new Rectangle(x, y, w, h);
         heldImage = b;
+        normalImage = deepCopy(b);
         isSelected = false;
     }
 
-    public void toggleSelected() {
-        if (isSelected) {
-            isSelected = false;
+    public static BufferedImage tintImage(BufferedImage loadImg, int red, int green, int blue, int alpha) {
+        Graphics g = loadImg.getGraphics();
+        g.setColor(new Color(red, green, blue, alpha));
+        g.fillRect(0, 0, loadImg.getWidth(), loadImg.getHeight());
+        g.dispose();
+        return loadImg;
+    }
 
-            return;
+    public static BufferedImage copyImage(BufferedImage source){
+        BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
+        Graphics g = b.getGraphics();
+        g.drawImage(source, 0, 0, null);
+        g.dispose();
+        return b;
+    }
+
+    public static BufferedImage deepCopy(BufferedImage bi) {
+        ColorModel cm = bi.getColorModel();
+        boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
+        WritableRaster raster = bi.copyData(bi.getRaster().createCompatibleWritableRaster());
+        return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
+    }
+
+    public BufferedImage colorImage(BufferedImage loadImg, int red, int green, int blue) {
+        BufferedImage img = new BufferedImage(loadImg.getWidth(), loadImg.getHeight(),
+                BufferedImage.TRANSLUCENT);
+        Graphics2D graphics = img.createGraphics();
+        Color newColor = new Color(red, green, blue, 0 /* alpha needs to be zero */);
+        graphics.setXORMode(newColor);
+        graphics.drawImage(loadImg, null, 0, 0);
+        graphics.dispose();
+        return img;
+    }
+
+    public void select() {
+        if (!isSelected) {
+            normalImage = deepCopy(heldImage);
+            setSelected(true);
+
+            heldImage = tintImage(heldImage, 0, 0, 100, 100);
         }
-        isSelected = true;
-        return;
+    }
+
+    public void deselect() {
+        if (isSelected) {
+            setSelected(false);
+            heldImage = deepCopy(normalImage);
+        }
+    }
+
+    public boolean getSelected() {
+        return this.isSelected;
+    }
+
+    public void toggleSelected() {
+
+        if (!isSelected) {
+            //normalImage = heldImage;
+            //heldImage = tintImage(heldImage, 0, 0, 100, 100);
+            normalImage = deepCopy(heldImage);
+            setSelected(true);
+
+            heldImage = tintImage(heldImage, 0, 0, 100, 100);
+
+        } else {
+            //heldImage = tintImage(heldImage, 255, 255, 155, 100);
+            setSelected(false);
+            heldImage = deepCopy(normalImage);
+
+        }
     }
 
     public void setSelected(boolean b) {
         if (b) {
-
+            isSelected = true;
         } else {
-
+            isSelected = false;
         }
     }
 

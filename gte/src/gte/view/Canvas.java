@@ -90,6 +90,7 @@ class Canvas extends JPanel
             // In case there is some animation going on (e.g. mouse dragging), call this to
             // paint the intermediate images
             this.updateUI();
+            mouseListener.paint(g);
         }
         else if (model.getImage() != null)
         {

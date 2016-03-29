@@ -7,6 +7,7 @@ import javax.swing.event.MouseInputListener;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 
 /**
@@ -61,6 +62,7 @@ class CanvasMouseListener implements MouseInputListener
     @Override
     public void mouseClicked(MouseEvent e)
     {
+        model.selectComponent(model.whichClicked(e.getPoint()));
     }
 
     @Override
@@ -77,6 +79,7 @@ class CanvasMouseListener implements MouseInputListener
     @Override
     public void mouseReleased(MouseEvent e)
     {
+        Rectangle r;
         if (!model.isActive())
             return ;
         view.getCanvas().removeMouseMotionListener(this);
@@ -86,17 +89,27 @@ class CanvasMouseListener implements MouseInputListener
         if (x1 <= x2)
         {
             if (y1 <= y2)
-                controller.addRect(new Rectangle(x1, y1, x2 - x1, y2 - y1));
+                r = new Rectangle(x1,y1,x2-x1,y2-y1);
             else
-                controller.addRect(new Rectangle(x1, y2, x2 - x1, y1 - y2));
+                r = new Rectangle(x1, y2, x2 - x1, y1 - y2);
         }
         else
         {
             if (y1 <= y2)
-                controller.addRect(new Rectangle(x2, y1, x1 - x2, y2 - y1));
+                r = new Rectangle(x2, y1, x1 - x2, y2 - y1);
             else
-                controller.addRect(new Rectangle(x2, y2, x1 - x2, y1 - y2));
+                r = new Rectangle(x2, y2, x1 - x2, y1 - y2);
         }
+        if (e.getModifiers()!=0 && e.isShiftDown()) {
+            model.selectComponents(model.allSelected(r));
+        } else if (e.getModifiers()!=0 && e.isControlDown()) {
+            model.toggleComponents(model.allSelected(r));
+        } else {
+            model.deselectAllComponents();
+            model.selectComponents(model.allSelected(r));
+        }
+
+        controller.addRect(r);
     }
 
     @Override
