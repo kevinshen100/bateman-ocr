@@ -81,6 +81,7 @@ public class Component {
     }
 
     public void select() {
+        System.out.println(isSelected);
         if (!isSelected) {
             normalImage = deepCopy(heldImage);
             setSelected(true);

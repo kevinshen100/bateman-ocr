@@ -1,6 +1,7 @@
 package gte.view;
 
 import gte.controller.Controller;
+import gte.model.Component;
 import gte.model.Model;
 import gte.view.actions.*;
 
@@ -30,7 +31,6 @@ public class View extends JFrame
 
     private ToggleAction toggleAction;
     private int pageNum;
-
 
     private double zoomLevel = 1;
 
@@ -77,6 +77,8 @@ public class View extends JFrame
         AbstractAction zoomInAction = new ZoomIn(model, this, controller);
         AbstractAction zoomWidthAction = new ZoomWidth(model, this, controller);
         AbstractAction zoomPageAction = new ZoomPage(model, this, controller);
+        AbstractAction clearRectangles = new ClearRectangles(model, this, controller);
+        AbstractAction upAction = new UpAction(model, this, controller);
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter()
@@ -130,9 +132,24 @@ public class View extends JFrame
         toolBar.add(zoomInAction);
         toolBar.add(zoomWidthAction);
         toolBar.add(zoomPageAction);
+        toolBar.add(clearRectangles);
+
+
+        for (java.awt.Component c: toolBar.getComponents()) {
+            c.setFocusable(false);
+        }
+
+        toolBar.setFocusable(false);
 
         getContentPane().add(toolBar, BorderLayout.NORTH);
 
+        canvas.setFocusable(true);
+        canvas.grabFocus();
+        canvas.requestFocus();
+
+        //keyboardListener = new CanvasKeyboardListener(model, this, controller);
+        //addKeyListener(keyboardListener);
+        System.out.println("wut");
         pack();
         setBounds(0, 0, 700, 800);
     }

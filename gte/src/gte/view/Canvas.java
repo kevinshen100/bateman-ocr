@@ -30,6 +30,7 @@ class Canvas extends JPanel
 	private View view;
 
     private CanvasMouseListener mouseListener;
+    private CanvasKeyboardListener keyboardListener;
 
 
     /**
@@ -52,7 +53,9 @@ class Canvas extends JPanel
         this.view = view;
         this.model = model;
         mouseListener = new CanvasMouseListener(model, view, controller);
+        keyboardListener = new CanvasKeyboardListener(model, view, controller);
         addMouseListener(mouseListener);
+        addKeyListener(keyboardListener);
     }
 
 

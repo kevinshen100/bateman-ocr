@@ -49,7 +49,139 @@ public class Model
         return rects;
     }
 
+    public void clearRects() {
+        rects.clear();
+    }
+
     public ArrayList<Component> getComps() { return comps; }
+
+    public Component nextAbove() {
+        Rectangle currentBounds = getSelectedBounds();
+        Component closest = null;
+        for (Component c: comps) {
+            if (selected.contains(c)) {
+                continue;
+            }
+            double currentTop = c.getImageCoords().getY();
+            if (currentTop <= currentBounds.getY() &&
+                    (currentBounds.getMaxX() >= c.getImageCoords().getMaxX() && c.getImageCoords().getMaxX() >= currentBounds.getX() ||
+                            c.getImageCoords().getX() <= currentBounds.getMaxX() && currentBounds.getMaxX() <= c.getImageCoords().getMaxX())) {
+                if (currentBounds.contains(c.getImageCoords())) {
+                    return c;
+                }
+
+                if (closest == null) {
+                    closest = c;
+                }
+                if (closest.getImageCoords().getY() < currentTop) {
+                    closest = c;
+                }
+            }
+        }
+        return closest;
+    }
+
+    public Component nextBelow() {
+        Rectangle currentBounds = getSelectedBounds();
+        Component closest = null;
+        for (Component c: comps) {
+            if (selected.contains(c)) {
+                continue;
+            }
+            double currentBottom = c.getImageCoords().getMaxY();
+            if (currentBottom >= currentBounds.getMaxY() &&
+                    (currentBounds.getMaxX() >= c.getImageCoords().getMaxX() && c.getImageCoords().getMaxX() >= currentBounds.getX() ||
+                            c.getImageCoords().getX() <= currentBounds.getMaxX() && currentBounds.getMaxX() <= c.getImageCoords().getMaxX())) {
+                if (currentBounds.contains(c.getImageCoords())) {
+                    return c;
+                }
+
+                if (closest == null) {
+                    closest = c;
+                }
+                if (closest.getImageCoords().getMaxY() > currentBottom) {
+                    closest = c;
+                }
+            }
+        }
+        return closest;
+    }
+
+    public Component nextRight() {
+        Rectangle currentBounds = getSelectedBounds();
+        Component closest = null;
+        for (Component c: comps) {
+            if (selected.contains(c)) {
+                continue;
+            }
+            double currentRight = c.getImageCoords().getMaxX();
+            if (currentRight >= currentBounds.getMaxX() &&
+                    (currentBounds.getMaxY() >= c.getImageCoords().getMaxY() && c.getImageCoords().getMaxY() >= currentBounds.getY() ||
+                            c.getImageCoords().getY() <= currentBounds.getMaxY() && currentBounds.getMaxY() <= c.getImageCoords().getMaxY())) {
+                if (currentBounds.contains(c.getImageCoords())) {
+                    return c;
+                }
+
+                if (closest == null) {
+                    closest = c;
+                }
+                if (closest.getImageCoords().getMaxX() > currentRight) {
+                    closest = c;
+                }
+            }
+        }
+        return closest;
+    }
+
+    public Component nextLeft() {
+        Rectangle currentBounds = getSelectedBounds();
+        Component closest = null;
+        for (Component c: comps) {
+            if (selected.contains(c)) {
+                continue;
+            }
+            double currentRight = c.getImageCoords().getX();
+            if (currentRight <= currentBounds.getX() &&
+                    (currentBounds.getMaxY() >= c.getImageCoords().getMaxY() && c.getImageCoords().getMaxY() >= currentBounds.getY() ||
+                            c.getImageCoords().getY() <= currentBounds.getMaxY() && currentBounds.getMaxY() <= c.getImageCoords().getMaxY())) {
+                if (currentBounds.contains(c.getImageCoords())) {
+                    return c;
+                }
+
+                if (closest == null) {
+                    closest = c;
+                }
+                if (closest.getImageCoords().getX() < currentRight) {
+                    closest = c;
+                }
+            }
+        }
+        return closest;
+    }
+
+    public Rectangle getSelectedBounds() {
+        double sx = -1;
+        double sy = -1;
+        double mx = -1;
+        double my = -1;
+        for (Component c : selected) {
+            System.out.println(c.getImageCoords().getMinX());
+            if (c.getImageCoords().getMinX() < sx || sx == -1) {
+                sx = c.getImageCoords().getMinX();
+            }
+            if (c.getImageCoords().getMinY() < sy || sy == -1) {
+                sy = c.getImageCoords().getMinY();
+            }
+            if (c.getImageCoords().getMaxX() > mx || mx == -1) {
+                mx = c.getImageCoords().getMaxX();
+            }
+            if (c.getImageCoords().getMaxY() > my || my == -1) {
+                my = c.getImageCoords().getMaxY();
+            }
+        }
+        System.out.println(sx+" "+sy+" "+(mx-sx)+" "+(my-sy));
+        return new Rectangle((int)sx, (int)sy, (int)(mx-sx), (int)(my-sy));
+    }
 
     public Component whichClicked(Point p) {
         for (Component c: comps) {
@@ -89,6 +221,10 @@ public class Model
     }
 
     public void selectComponent(Component c) {
+        if (c == null) {
+            return;
+        }
+
         if (c.getImageCoords().getHeight()>1000 && c.getImageCoords().getWidth()>1000) {
             return;
         }
