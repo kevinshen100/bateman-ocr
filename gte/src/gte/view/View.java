@@ -6,8 +6,9 @@ import gte.model.Model;
 import gte.view.actions.*;
 
 import javax.swing.*;
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -31,8 +32,10 @@ public class View extends JFrame
 
     private ToggleAction toggleAction;
     private int pageNum;
-
+    private CanvasMouseListener mouseListener;
+    private CanvasKeyboardListener keyboardListener;
     private double zoomLevel = 1;
+    private TypeEnterBox teb;
 
     public void setZoomLevel(double z) {
         zoomLevel = z;
@@ -147,11 +150,48 @@ public class View extends JFrame
         canvas.grabFocus();
         canvas.requestFocus();
 
+        teb = new TypeEnterBox(model,this,controller);
+
+        getContentPane().add(teb, BorderLayout.SOUTH);
+
         //keyboardListener = new CanvasKeyboardListener(model, this, controller);
         //addKeyListener(keyboardListener);
         System.out.println("wut");
+
+
+        KeyboardFocusManager.getCurrentKeyboardFocusManager()
+                .addKeyEventDispatcher(new KeyEventDispatcher() {
+                    @Override
+                    public boolean dispatchKeyEvent(KeyEvent e) {
+                        int keyCode = e.getKeyCode();
+                        switch( keyCode ) {
+                            case KeyEvent.VK_ENTER:
+                                System.out.println("plserino workerin");
+                                getTextData();
+                                teb.convertDataToJSON(getTextData(), getRect());
+                                break;
+                        }
+                        return false; //continue with the keypress, otherwise it'll be intercepted
+                    }
+                });
+
+        /*
+        mouseListener = new CanvasMouseListener(model, this, controller);
+        keyboardListener = new CanvasKeyboardListener(model, this, controller);
+        addMouseListener(mouseListener);
+        addKeyListener(keyboardListener);
+        */
         pack();
         setBounds(0, 0, 700, 800);
+    }
+
+    public String getTextData() {
+        System.out.println(teb.getData());
+        System.out.println(model.getSelected().get(0));
+        return teb.getData();
+    }
+    public Component getRect() {
+        return model.getSelected().get(0);
     }
 
     public void adaptToNewImage()

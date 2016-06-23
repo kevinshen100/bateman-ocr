@@ -38,12 +38,20 @@ public class Component {
     private BufferedImage normalImage;
     private boolean isSelected;
 
+    private String associatedType;
+    private String associatedWord;
+
 
     public Component(int x, int y, int w, int h, BufferedImage b) {
         imageCoords = new Rectangle(x, y, w, h);
         heldImage = b;
         normalImage = deepCopy(b);
         isSelected = false;
+        associatedWord = "";
+    }
+
+    public void setAssociatedType(String s) {
+        associatedType = s;
     }
 
     public static BufferedImage tintImage(BufferedImage loadImg, int red, int green, int blue, int alpha) {
@@ -129,6 +137,10 @@ public class Component {
 
     public BufferedImage getHeldImage() {
         return heldImage;
+    }
+
+    public String toString() {
+        return this.getImageCoords().toString();
     }
 
     public Rectangle getImageCoords() {

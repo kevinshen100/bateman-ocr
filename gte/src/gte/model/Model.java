@@ -55,6 +55,8 @@ public class Model
 
     public ArrayList<Component> getComps() { return comps; }
 
+    public ArrayList<Component> getSelected() { return selected; }
+
     public Component nextAbove() {
         Rectangle currentBounds = getSelectedBounds();
         Component closest = null;
@@ -165,7 +167,6 @@ public class Model
         double mx = -1;
         double my = -1;
         for (Component c : selected) {
-            System.out.println(c.getImageCoords().getMinX());
             if (c.getImageCoords().getMinX() < sx || sx == -1) {
                 sx = c.getImageCoords().getMinX();
             }
@@ -179,7 +180,6 @@ public class Model
                 my = c.getImageCoords().getMaxY();
             }
         }
-        System.out.println(sx+" "+sy+" "+(mx-sx)+" "+(my-sy));
         return new Rectangle((int)sx, (int)sy, (int)(mx-sx), (int)(my-sy));
     }
 
@@ -230,7 +230,6 @@ public class Model
         }
         selected.add(c);
         c.select();
-        System.out.println(c.getImageCoords());
     }
 
     public void toggleComponents(ArrayList<Component> a) {

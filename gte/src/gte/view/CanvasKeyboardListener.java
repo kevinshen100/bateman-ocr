@@ -16,11 +16,13 @@ public class CanvasKeyboardListener implements KeyListener {
     View view;
     Controller controller;
 
+    /*
     int x1;
     int y1;
     int x2;
     int y2;
     boolean mouseDown = false;
+    */
 
     public CanvasKeyboardListener(Model model, View view, Controller controller)
     {
@@ -34,31 +36,35 @@ public class CanvasKeyboardListener implements KeyListener {
         int keyCode = e.getKeyCode();
         switch( keyCode ) {
             case KeyEvent.VK_UP:
-                model.selectComponent(model.nextAbove());
                 System.out.println("up");
+                model.selectComponent(model.nextAbove());
                 break;
             case KeyEvent.VK_DOWN:
+                System.out.println("up");
                 model.selectComponent(model.nextBelow());
-                System.out.println("d");
                 break;
             case KeyEvent.VK_LEFT:
+                System.out.println("up");
                 model.selectComponent(model.nextLeft());
-                System.out.println("l");
                 break;
             case KeyEvent.VK_RIGHT :
+                System.out.println("up");
                 model.selectComponent(model.nextRight());
-                System.out.println("r");
+                break;
+            case KeyEvent.VK_ENTER:
+                System.out.println("y u do dish");
+                view.getTextData();
                 break;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e){
-        System.out.println("lel");
+
     }
 
     @Override
     public void keyTyped(KeyEvent e){
-        System.out.println("lol");
+
     }
 }

@@ -31,7 +31,7 @@ class Canvas extends JPanel
 
     private CanvasMouseListener mouseListener;
     private CanvasKeyboardListener keyboardListener;
-
+    private boolean hasFocus = false;
 
     /**
      * The default constructor should NEVER be called. It is made private so that no other class can create a
