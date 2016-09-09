@@ -4,20 +4,25 @@ import gte.utils.ImageFile;
 import gte.utils.UnsupportedImageTypeException;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Point;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.awt.event.*;
+import java.util.Scanner;
 
 /**
  * Created by kns10 on 2/24/16.
@@ -30,6 +35,7 @@ public class Component {
     private int page_height;
     private String cc_image;
     private String image_basePath = "gte/data/sample_ccs/page-";
+    private String json_basePath = "temp/";
     private Rectangle imageCoords;
 
     private String[] everythingElse;
@@ -52,6 +58,12 @@ public class Component {
 
     public void setAssociatedType(String s) {
         associatedType = s;
+    }
+
+    public void setAssociatedWord(String s) { associatedWord = s; }
+
+    public String getAssociatedWord() {
+        return this.associatedWord;
     }
 
     public static BufferedImage tintImage(BufferedImage loadImg, int red, int green, int blue, int alpha) {
@@ -180,7 +192,25 @@ public class Component {
 
         isSelected = false;
 
+        // use rectangle bounding box as unique identifier for each component
+        // take the hash code to remove all invalid characters
+        // might change to json eventually
+        String pathToJSON = json_basePath + imageCoords.toString().hashCode() + "/data.txt";
+        try {
+            Scanner in = new Scanner(new FileReader(pathToJSON));
+            associatedWord = in.nextLine().trim();
+            in.close();
+        } catch (Exception e) {
+            associatedWord = "";
+        }
 
     }
+
+
+
+    // on hover
+    // do stuff
+    //this.setTooltip(associatedWord);
+
 
 }

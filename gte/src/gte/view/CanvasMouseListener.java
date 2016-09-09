@@ -65,6 +65,8 @@ class CanvasMouseListener implements MouseInputListener
         model.selectComponent(model.whichClicked(e.getPoint()));
     }
 
+
+
     @Override
     public void mousePressed(MouseEvent e)
     {
@@ -125,13 +127,23 @@ class CanvasMouseListener implements MouseInputListener
     @Override
     public void mouseDragged(MouseEvent e)
     {
-        x2 = (int)(e.getX()/view.getZoomLevel());
-        y2 = (int)(e.getY()/view.getZoomLevel());
+        x2 = (int)(e.getX() / view.getZoomLevel());
+        y2 = (int)(e.getY() / view.getZoomLevel());
         view.getCanvas().repaint();
     }
 
     @Override
     public void mouseMoved(MouseEvent e)
     {
+        try {
+            String a;
+            if ((a = model.whichClicked(e.getPoint()).getAssociatedWord()) != null &&
+                    !a.equals(view.getCanvasTooltip())) {
+                System.out.println(a);
+                view.setCanvasTooltip(a);
+            }
+        } catch (NullPointerException npe) {
+
+        }
     }
 }

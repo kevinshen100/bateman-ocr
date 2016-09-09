@@ -43,6 +43,15 @@ public class View extends JFrame
         repaint();
         canvas.repaint();
     }
+
+    public void setCanvasTooltip(String s) {
+        canvas.setToolTipText(s);
+    }
+
+    public String getCanvasTooltip() {
+        return canvas.getToolTipText();
+    }
+
     public double getZoomLevel() {return zoomLevel;}
 
     public View(Model model, Controller controller)
@@ -156,22 +165,26 @@ public class View extends JFrame
 
         //keyboardListener = new CanvasKeyboardListener(model, this, controller);
         //addKeyListener(keyboardListener);
-        System.out.println("wut");
 
 
         KeyboardFocusManager.getCurrentKeyboardFocusManager()
                 .addKeyEventDispatcher(new KeyEventDispatcher() {
                     @Override
                     public boolean dispatchKeyEvent(KeyEvent e) {
+                        if (e.getKeyCode() == KeyEvent.VK_ENTER && e.getID() == KeyEvent.KEY_PRESSED) {
+                            getTextData();
+                            teb.convertDataToJSON(getTextData(), getRect());
+                        }
+                        /*
                         int keyCode = e.getKeyCode();
                         switch( keyCode ) {
                             case KeyEvent.VK_ENTER:
-                                System.out.println("plserino workerin");
                                 getTextData();
                                 teb.convertDataToJSON(getTextData(), getRect());
                                 break;
                         }
-                        return false; //continue with the keypress, otherwise it'll be intercepted
+                        */
+                        return false; //don't intercept
                     }
                 });
 

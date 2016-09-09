@@ -55,6 +55,7 @@ class Canvas extends JPanel
         mouseListener = new CanvasMouseListener(model, view, controller);
         keyboardListener = new CanvasKeyboardListener(model, view, controller);
         addMouseListener(mouseListener);
+        addMouseMotionListener(mouseListener);
         addKeyListener(keyboardListener);
     }
 

@@ -20,7 +20,7 @@ public class ZoomPage extends AbstractAction{
 
     {
         putValue(NAME, "Zoom Page");
-        putValue(SMALL_ICON, new ImageIcon(getClass().getResource("/gte/icons/zoomin.png")));
+        putValue(SMALL_ICON, new ImageIcon(getClass().getResource("/gte/icons/zoomwindow.png")));
         putValue(SHORT_DESCRIPTION, "fits page on window");
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control 7"));
     }

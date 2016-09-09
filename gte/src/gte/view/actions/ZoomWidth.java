@@ -20,7 +20,7 @@ public class ZoomWidth extends AbstractAction {
 
     {
         putValue(NAME, "Zoom Out");
-        putValue(SMALL_ICON, new ImageIcon(getClass().getResource("/gte/icons/zoomin.png")));
+        putValue(SMALL_ICON, new ImageIcon(getClass().getResource("/gte/icons/zoomwidth.png")));
         putValue(SHORT_DESCRIPTION, "Zoom width");
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control 9"));
     }

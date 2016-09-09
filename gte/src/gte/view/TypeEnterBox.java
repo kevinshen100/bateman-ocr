@@ -26,6 +26,8 @@ public class TypeEnterBox extends JPanel {
     private Model model;
     private JTextField field;
     private InputKeyboardListener keyboardListener;
+    private String json_basePath = "temp/";
+
     private TypeEnterBox() {
 
     }
@@ -41,8 +43,29 @@ public class TypeEnterBox extends JPanel {
     }
 
     public void convertDataToJSON(String label, Component data) {
+
+        try {
+            data.setAssociatedWord(label);
+            String pathToJSON = json_basePath + data.toString().hashCode() + "/data.txt";
+            System.out.println(pathToJSON);
+            File file= new File(pathToJSON);
+            FileWriter fw;
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            fw = new FileWriter(file);
+            fw.write(label);
+            fw.flush();
+            fw.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         JSONObject obj = new JSONObject();
         obj.put("label", label);
+        obj.put("hashcode", data.toString().hashCode());
         obj.put("data", data.toString());
         try {
 

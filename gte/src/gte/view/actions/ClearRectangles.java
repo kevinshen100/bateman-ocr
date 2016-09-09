@@ -20,7 +20,7 @@ public class ClearRectangles extends AbstractAction {
 
     {
         putValue(NAME, "Clear Rectangles");
-        putValue(SMALL_ICON, new ImageIcon(getClass().getResource("/gte/icons/rightarrow.png")));
+        putValue(SMALL_ICON, new ImageIcon(getClass().getResource("/gte/icons/clearrectangles.png")));
         putValue(SHORT_DESCRIPTION, "Erases rectangles.");
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("control ."));
     }
